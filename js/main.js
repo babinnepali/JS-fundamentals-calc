@@ -1,28 +1,36 @@
 // alert("hello, world!");
 console.log('Hello World!');
 
-//Constructor
-class Calculator{
-    constructor(lastInnerText, newInnerText){
-        this.lastInnerText = newInnerText;
-        this.newInnerText = lastInnerText;
-        
-    }
-}
-
-//mentions
-const addButton = document.querySelector('[add]')
-const equalButton = document.querySelector('[equal]')
-const lastInnerText = document.querySelector('[data-previous-operand]')
-const newInnerText = document.querySelector('[data-current-operand]')
-
-
+let firstOperand;
+let secondOperand;
+let operator;
+let result;
 
 // If any button is clicked then this function is invoked.
 function helloBabin(event){ 
-    console.dir(event);
-    console.log(event.target.innerText); // logic starts from here!
-    displayResult.innerText = event.target.innerText;
+    const curValue = event.target.innerText;
+    console.log(curValue); // logic starts from here!
+    //condition
+    if(curValue >= 0 && curValue  <= 9){
+        displayResult.innerText = curValue;
+        if(firstOperand === undefined){
+            firstOperand = curValue;
+        }else{
+            secondOperand = curValue;
+        }
+     }else if (curValue === "=") {
+         // eqauls execution 
+         if(operator ==="+"){
+            result = Number(firstOperand) + Number(secondOperand);
+        }
+        displayResult.innerText = result;
+     } else {
+         operator = curValue;
+     }
+    console.log("first:",firstOperand); 
+    console.log("op:", operator);
+    console.log("second:",secondOperand);
+
 }
 
 // Event listeners
@@ -32,7 +40,7 @@ buttons.addEventListener('click', helloBabin);
 // Screen 
 const displayResult = document.querySelector('.screen');
 console.dir(displayResult);
-displayResult.innerText = ' 0';
+displayResult.innerText = '0';
 
 
 // 7 => + =>3 =>10
